@@ -1,0 +1,44 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TicketDAO {
+    private static final String SELECT_ALL = "SELECT * FROM Ticket";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/votre_base_de_donnees";
+    private static final String DB_USER = "votre_utilisateur";
+    private static final String DB_PASSWORD = "votre_mot_de_passe";
+    
+    public List<Ticket> getAllTickets() {
+        List<Ticket> tickets = new ArrayList<>();
+        
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+             ResultSet resultSet = statement.executeQuery()) {
+            
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String dateDepart = resultSet.getString("date_depart");
+                String dateArrivee = resultSet.getString("date_arrivee");
+                String gareDepart = resultSet.getString("gare_depart");
+                String gareArrivee = resultSet.getString("gare_arrivee");
+                String classe = resultSet.getString("classe");
+                String voyageur = resultSet.getString("voyageur");
+                double prix = resultSet.getDouble("prix");
+                double prixApresReduction = resultSet.getDouble("prix_apres_reduction");
+                
+                Ticket ticket = new Ticket(id, dateDepart, dateArrivee, gareDepart, gareArrivee,
+                                           classe, voyageur, prix, prixApresReduction);
+                tickets.add(ticket);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return tickets;
+    }
+
+    // Autres méthodes pour les opérations CRUD
+}
