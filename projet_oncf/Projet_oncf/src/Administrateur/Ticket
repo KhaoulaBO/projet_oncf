@@ -1,0 +1,26 @@
+public class Ticket {
+    private int id;
+    private String dateDepart;
+    private String dateArrivee;
+    private String gareDepart;
+    private String gareArrivee;
+    private String classe;
+    private String voyageur;
+    private double prix;
+    private double prixApresReduction;
+
+    public Ticket(int id, String dateDepart, String dateArrivee, String gareDepart, String gareArrivee,
+                  String classe, String voyageur, double prix, double prixApresReduction) {
+        this.id = id;
+        this.dateDepart = dateDepart;
+        this.dateArrivee = dateArrivee;
+        this.gareDepart = gareDepart;
+        this.gareArrivee = gareArrivee;
+        this.classe = classe;
+        this.voyageur = voyageur;
+        this.prix = prix;
+        this.prixApresReduction = prixApresReduction;
+    }
+
+    // Getters et Setters
+}
